@@ -31,13 +31,17 @@ const UsuarioProvider = (props) => {
           rol: "invitado"
         })
       }
-
     } catch (error) {
       console.log(error)
     }
   }
+
+  const cerrarSesion = () => {
+    auth.signOut()
+  }
+
   return (
-    <UsuarioContext.Provider value={{ usuario, iniciarSesion }}>
+    <UsuarioContext.Provider value={{ usuario, iniciarSesion, cerrarSesion }}>
       {props.children}
     </UsuarioContext.Provider>
   )
