@@ -10,8 +10,53 @@ const UsuarioProvider = (props) => {
     email: null,
     activo: null
   }
-
   const [usuario, setUsuario] = useState(dataInicialUsuario)
+
+  //Detectar usuario
+  React.useEffect(() => {
+    detectarUsuario()
+  }, [])
+
+  const detectarUsuario = () => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log(user)
+        //accediento al token del usuario
+        user.getIdTokenResult()
+          .then(idTokenResult => {
+            console.log(idTokenResult)
+            //Si el usuario loggeado es admin, se modificara su rol a admin, mediante la propiedad rol
+            if (!!idTokenResult.claims.admin) {
+              console.log("es admin")
+              setUsuario({
+                ui: user.uid,
+                email: user.email,
+                activo: true,
+                rol: "admin"
+              })
+            } else if (!!idTokenResult.claims.autor) {
+              console.log("es autor")
+              setUsuario({
+                ui: user.uid,
+                email: user.email,
+                activo: true,
+                rol: "autor"
+              })
+            } else {
+              console.log("es invitado")
+              setUsuario({
+                ui: user.uid,
+                email: user.email,
+                activo: true,
+                rol: "invitado"
+              })
+            }
+          })
+      } else {
+        console.log(user)
+      }
+    })
+  }
 
   const iniciarSesion = async () => {
     try {
