@@ -53,7 +53,13 @@ const UsuarioProvider = (props) => {
             }
           })
       } else {
-        console.log(user)
+        //cerrando sesion y reiniciando el state
+        setUsuario({
+          ui: null,
+          email: null,
+          activo: false,
+          rol: null
+        })
       }
     })
   }
