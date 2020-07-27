@@ -27,14 +27,28 @@ const VistaAdmin = () => {
     const agregarRol = functions.httpsCallable("agregarAdministrador")
 
     agregarRol({ email: email })
-      .then(res => { console.log(res) })
+      .then(res => {
+        console.log(res)
+        if (res.data.error) {
+          console.log("No tienes permisos")
+          return
+        }
+        //modificando el rol de invitado a admin
+        db.collection("usuarios").doc(email).update({ rol: "admin" })
+          .then(user => {
+            console.log("usuario modificado rol administrador")
+            //leyendo otra vez la BD, para que se haga el cambio de rol
+            fetchUsuarios()
+          })
+      })
   }
+
   return (
     <div>
       <h3>Administración de usuarios</h3>
       {usuarios.map(usuario => (
         //.uid, .email, .rol -> son propiedades que estan en la BD.
-        <div key={usuario.uid}>
+        <div key={usuario.uid} className="mb-2">
           {usuario.email} - rol: {usuario.rol}
           <button
             className="btn btn-danger mx-2"
