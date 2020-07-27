@@ -5,14 +5,12 @@ const VistaAdmin = () => {
 
   React.useEffect(() => {
     fetchUsuarios()
-  })
+  }, [])
 
   const fetchUsuarios = async () => {
     try {
       const res = await db.collection("usuarios").get()
-      const arrayUsuarios = res.docs.map((doc) => {
-        doc.data()
-      })
+      const arrayUsuarios = res.docs.map(doc => doc.data())
       setUsuarios(arrayUsuarios)
     } catch (error) {
       console.log(error)
@@ -20,10 +18,10 @@ const VistaAdmin = () => {
   }
   return (
     <div>
-      <h3>Administracion de usuarios</h3>
+      <h3>Administración de usuarios</h3>
       {usuarios.map(usuario => (
         <div key={usuario.uid}>
-          {usuario.email}- rol: {usuario.rol}
+          {usuario.email} - rol: {usuario.rol}
         </div>
       ))}
     </div>

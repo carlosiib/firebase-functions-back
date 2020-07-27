@@ -29,24 +29,24 @@ const UsuarioProvider = (props) => {
             if (!!idTokenResult.claims.admin) {
               console.log("es admin")
               setUsuario({
-                ui: user.uid,
                 email: user.email,
+                uid: user.uid,
                 activo: true,
                 rol: "admin"
               })
             } else if (!!idTokenResult.claims.autor) {
               console.log("es autor")
               setUsuario({
-                ui: user.uid,
                 email: user.email,
+                uid: user.uid,
                 activo: true,
                 rol: "autor"
               })
             } else {
               console.log("es invitado")
               setUsuario({
-                ui: user.uid,
                 email: user.email,
+                uid: user.uid,
                 activo: true,
                 rol: "invitado"
               })
@@ -55,8 +55,8 @@ const UsuarioProvider = (props) => {
       } else {
         //cerrando sesion y reiniciando el state
         setUsuario({
-          ui: null,
           email: null,
+          uid: null,
           activo: false,
           rol: null
         })
@@ -68,15 +68,15 @@ const UsuarioProvider = (props) => {
     try {
       //preguntando por un proveedor
       const provider = new firebase.auth.GoogleAuthProvider()
-      const res = auth.signInWithPopup(provider)
+      const res = await auth.signInWithPopup(provider)
 
       //En caso que el usario se logge, pero no este registrado en una collecion. ¿Existe coleccion de usuarios con el documento en especifico(res.user.email) del usuario que esta accediendo a la app?
 
       const existe = await db.collection("usuarios").doc(res.user.email).get()
 
-      if (!existe.exist) {
+      if (!existe.exists) {
         //creamos la coleccion en caso de no existir
-        await db.collection("usuarios").doc((await res).user.email).set({
+        await db.collection("usuarios").doc(res.user.email).set({
           uid: res.user.uid,
           email: res.user.email,
           rol: "invitado"
