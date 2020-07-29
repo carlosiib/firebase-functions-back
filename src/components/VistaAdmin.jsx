@@ -43,6 +43,27 @@ const VistaAdmin = () => {
       })
   }
 
+  const crearAutor = (email) => {
+    const agregarRol = functions.httpsCallable("crearAutor")
+    agregarRol({ email: email })
+      .then(res => {
+        console.log(res)
+        if (res.data.erro) {
+          console.log("No tiene permisos")
+          return
+        }
+      })
+
+    db.collection("usuarios").doc(email).update({ rol: "autor" })
+      .then(user => {
+        console.log("usuario modificado rol autor")
+        //leyendo otra vez la BD, para que se haga el cambio de rol
+        fetchUsuarios()
+      })
+
+
+  }
+
   return (
     <div>
       <h3>Administración de usuarios</h3>
@@ -54,6 +75,8 @@ const VistaAdmin = () => {
             className="btn btn-danger mx-2"
             onClick={() => administrador(usuario.email)}
           >Administardor</button>
+          <button className="btn btn-success mx-2"
+            onClick={() => crearAutor(usuario.email)}>Autor</button>
         </div>
       ))}
     </div>
