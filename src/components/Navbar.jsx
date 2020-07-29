@@ -10,17 +10,23 @@ const Navbar = () => {
     <div className="navbar navbar-dark bg-dark">
       <div className="container">
         <div>
-          <button
-            className="btn btn-dark"
-            onClick={iniciarSesion}>
-            Login
+          {
+            usuario.email ? (
+              <button className="btn btn-dark" onClick={cerrarSesion}>
+                Cerrar Sesión
               </button>
-          <button className="btn btn-dark"
-            onClick={cerrarSesion}>
-            Cerrar Sesión</button>
+            ) : (
+                <button className="btn btn-dark"
+                  onClick={iniciarSesion}>
+                  Login
+                </button>
+              )
+          }
         </div>
         <div>
-          <span className="text-light">Invitado</span>
+          <span className="text-light">
+            {usuario.email ? usuario.email : "Invitado"}
+          </span>
         </div>
       </div>
     </div>
