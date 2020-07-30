@@ -7,7 +7,7 @@ const Navbar = () => {
   const { usuario, iniciarSesion, cerrarSesion } = React.useContext(UsuarioContext)
 
   return (
-    <div className="navbar navbar-dark bg-dark">
+    <div className="navbar navbar-dark bg-dark mb-3">
       <div className="container">
         <div>
           {

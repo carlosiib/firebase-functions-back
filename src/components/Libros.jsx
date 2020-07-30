@@ -15,8 +15,8 @@ const Libros = () => {
             <li
               key={libro.id}
               className="list-group-item">
-              <span> {libro.titulo}</span>
-              <span>
+              <span className="font-weight-bold text-uppercase"> {libro.titulo}</span>
+              <span className="font-italic">
                 <MostrarAutor autorRef={libro.autor} />
               </span>
             </li>

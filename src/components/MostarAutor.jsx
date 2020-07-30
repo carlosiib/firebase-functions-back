@@ -21,7 +21,7 @@ const MostarAutor = (props) => {
   }
   return (
     <>
-      <span> {autor}</span>
+      <span> - {autor}</span>
     </>
   )
 }
