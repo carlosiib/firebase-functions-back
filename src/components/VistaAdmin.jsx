@@ -52,14 +52,16 @@ const VistaAdmin = () => {
           console.log("No tiene permisos")
           return
         }
+        db.collection("usuarios").doc(email).update({ rol: "autor" })
+          .then(user => {
+            console.log("usuario modificado rol autor")
+            //leyendo otra vez la BD, para que se haga el cambio de rol
+            fetchUsuarios()
+          })
       })
+      .catch(error => console.log(error))
 
-    db.collection("usuarios").doc(email).update({ rol: "autor" })
-      .then(user => {
-        console.log("usuario modificado rol autor")
-        //leyendo otra vez la BD, para que se haga el cambio de rol
-        fetchUsuarios()
-      })
+
   }
 
   const eliminarAutor = email => {
