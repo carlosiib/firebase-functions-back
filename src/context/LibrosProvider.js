@@ -13,11 +13,12 @@ const LibrosProvider = (props) => {
 
   const fetchLibros = async () => {
     try {
-      //getting info de collection libros
+      //getting DB collection libros
       const res = await db.collection("libros").get()
       const arrayLibros = res.docs.map(doc => {
         return {
-          //destructuracion del las propiedades de un autor de la collection libros
+          //retornando un nuevo objeto con propiepades del la collecion e incorparndole el id del autor
+          //...doc.data() -> obteniendo del las propiedades(autor,paginas, titulo, uid) de un autor de la collection libros
           ...doc.data(),
           id: doc.id
         }
