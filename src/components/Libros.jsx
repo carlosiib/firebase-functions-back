@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { LibrosContext } from "../context/LibrosProvider"
+import MostrarAutor from "./MostarAutor"
 
 const Libros = () => {
   const { libros } = React.useContext(LibrosContext)
@@ -15,6 +16,9 @@ const Libros = () => {
               key={libro.id}
               className="list-group-item">
               <span> {libro.titulo}</span>
+              <span>
+                <MostrarAutor autorRef={libro.autor} />
+              </span>
             </li>
           )
           )
