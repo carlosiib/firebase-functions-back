@@ -1,5 +1,5 @@
 # Books app
-[This app](https://books-custom-claims.netlify.app/) allows users to create custom claims(administrator, guest, author) through firebase functions.
+[This app](https://books-custom-claims.netlify.app/) allow users to create custom claims(administrator, guest, author) through firebase functions.
 
 ## Administrator panel
 <img src="src/assets/roles-admin-panel.gif" alt="admin-panel" >
